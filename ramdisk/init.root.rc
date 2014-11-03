@@ -1,7 +1,7 @@
 #
 # start Root
 #
-service tpcc-init /sbin/root-init.sh
+service root-init /sbin/root-init.sh
      class late_start
      user root
      disabled
