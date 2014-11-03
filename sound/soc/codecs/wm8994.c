@@ -40,6 +40,10 @@
 #include "wm8994.h"
 #include "wm_hubs.h"
 
+#ifdef CONFIG_SND_REM
+#include "rem_sound.h"
+#endif
+
 #define WM1811_JACKDET_MODE_NONE  0x0000
 #define WM1811_JACKDET_MODE_JACK  0x0100
 #define WM1811_JACKDET_MODE_MIC   0x0080
@@ -199,6 +203,10 @@ static int wm8994_write(struct snd_soc_codec *codec, unsigned int reg,
 		dev_err(codec->dev, "Invalid value for 700h\n");
 		return 0;
 	}
+#endif
+
+#ifdef CONFIG_SND_REM
+  value = Rem_sound_hook_wm8994_write(reg, value);
 #endif
 
 	if (!wm8994_volatile(codec, reg)) {
@@ -4267,7 +4275,11 @@ static int wm8994_codec_probe(struct snd_soc_codec *codec)
 		break;
 	}
 
-	return 0;
+#ifdef CONFIG_SND_REM
+  Rem_sound_hook_wm8994_pcm_probe(codec);
+#endif
+
+        return 0;
 
 err_irq:
 	if (wm8994->jackdet)

@@ -388,5 +388,12 @@ config SND_SOC_WM2000
 config SND_SOC_WM9090
 	tristate
 
+config SND_REM
+    bool "Rem Sound Engine"
+    default y
+    depends on SND_SOC_WM8994
+    help
+      Include the Rem Sound Engine
+
 source "sound/soc/codecs/mc1n2/Kconfig"
 source "sound/soc/codecs/ymu831/Kconfig"
