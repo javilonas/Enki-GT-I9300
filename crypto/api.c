@@ -34,6 +34,8 @@ EXPORT_SYMBOL_GPL(crypto_alg_sem);
 BLOCKING_NOTIFIER_HEAD(crypto_chain);
 EXPORT_SYMBOL_GPL(crypto_chain);
 
+static struct crypto_alg *crypto_larval_wait(struct crypto_alg *alg);
+
 static inline struct crypto_alg *crypto_alg_get(struct crypto_alg *alg)
 {
 	atomic_inc(&alg->cra_refcnt);
@@ -157,7 +159,6 @@ static struct crypto_alg *crypto_larval_add(const char *name, u32 type,
 		if (crypto_is_larval(alg))
 			alg = crypto_larval_wait(alg);
 	}
-
 	return alg;
 }
 
@@ -366,6 +367,11 @@ struct crypto_tfm *__crypto_alloc_tfm(struct crypto_alg *alg, u32 type,
 	unsigned int tfm_size;
 	int err = -ENOMEM;
 
+#ifdef CONFIG_CRYPTO_FIPS
+	if (unlikely(in_fips_err()))
+		return ERR_PTR(-EACCES);
+#endif
+
 	tfm_size = sizeof(*tfm) + crypto_ctxsize(alg, type, mask);
 	tfm = kzalloc(tfm_size, GFP_KERNEL);
 	if (tfm == NULL)
@@ -422,6 +428,11 @@ struct crypto_tfm *crypto_alloc_base(const char *alg_name, u32 type, u32 mask)
 	struct crypto_tfm *tfm;
 	int err;
 
+#ifdef CONFIG_CRYPTO_FIPS
+	if (unlikely(in_fips_err()))
+		return ERR_PTR(-EACCES);
+#endif
+
 	for (;;) {
 		struct crypto_alg *alg;
 
@@ -460,6 +471,13 @@ void *crypto_create_tfm(struct crypto_alg *alg,
 	unsigned int total;
 	int err = -ENOMEM;
 
+#ifdef CONFIG_CRYPTO_FIPS
+	if (unlikely(in_fips_err())) {
+		printk(KERN_ERR
+			"Fail crypto_create_tfm due to fips error state.\n");
+		return ERR_PTR(-EACCES);
+	}
+#endif
 	tfmsize = frontend->tfmsize;
 	total = tfmsize + sizeof(*tfm) + frontend->extsize(alg);
 
@@ -538,6 +556,11 @@ void *crypto_alloc_tfm(const char *alg_name,
 {
 	void *tfm;
 	int err;
+
+#ifdef CONFIG_CRYPTO_FIPS
+	if (unlikely(in_fips_err()))
+		return ERR_PTR(-EACCES);
+#endif
 
 	for (;;) {
 		struct crypto_alg *alg;

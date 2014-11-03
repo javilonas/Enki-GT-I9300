@@ -68,7 +68,11 @@ void show_swap_cache_info(void)
  * __add_to_swap_cache resembles add_to_page_cache_locked on swapper_space,
  * but sets SwapCache flag and private instead of mapping and index.
  */
+#ifdef CONFIG_ZSWAP
+int __add_to_swap_cache(struct page *page, swp_entry_t entry)
+#else
 static int __add_to_swap_cache(struct page *page, swp_entry_t entry)
+#endif
 {
 	int error;
 
@@ -390,6 +394,7 @@ struct page *read_swap_cache_async(swp_entry_t entry, gfp_t gfp_mask,
 struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 			struct vm_area_struct *vma, unsigned long addr)
 {
+#ifdef CONFIG_SWAP_ENABLE_READAHEAD
 	int nr_pages;
 	struct page *page;
 	unsigned long offset;
@@ -412,5 +417,6 @@ struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 		page_cache_release(page);
 	}
 	lru_add_drain();	/* Push any new pages onto the LRU now */
+#endif
 	return read_swap_cache_async(entry, gfp_mask, vma, addr);
 }
