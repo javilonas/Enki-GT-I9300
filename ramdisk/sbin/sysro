@@ -1,0 +1,9 @@
+#!/sbin/busybox sh
+#
+# Script sysro by javilonas
+#
+
+SYSTEM_DEVICE="/dev/block/mmcblk0p9"
+
+/sbin/busybox mount -t rootfs -o remount,ro rootfs
+/sbin/busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
