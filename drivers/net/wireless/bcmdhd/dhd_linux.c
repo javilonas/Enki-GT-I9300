@@ -896,7 +896,7 @@ void dhd_enable_packet_filter(int value, dhd_pub_t *dhd)
 	    (dhd_support_sta_mode(dhd) && !dhd->dhcp_in_progress)))
 	    {
 		for (i = 0; i < dhd->pktfilter_count; i++) {
-#ifndef GAN_LITE_NAT_KEEPALIVE_FILTER
+#if !defined(GAN_LITE_NAT_KEEPALIVE_FILTER) && 0
 			if (value && (i == DHD_ARP_FILTER_NUM) &&
 				!_turn_on_arp_filter(dhd, dhd->op_mode)) {
 				DHD_TRACE(("Do not turn on ARP white list pkt filter:"
