@@ -151,6 +151,9 @@ static void late_resume(struct work_struct *work)
 	unsigned long irqflags;
 	int abort = 0;
 
+	struct timer_list timer;
+	struct pm_wd_data data;
+
 #ifdef CONFIG_SPEEDUP_KEYRESUME
 	earlysuspend_old_prio = current->rt_priority;
 	earlysuspend_old_policy = current->policy;
@@ -161,9 +164,6 @@ static void late_resume(struct work_struct *work)
 			printk(KERN_ERR "late_resume: up late_resume failed\n");
 	}
 #endif
-
-	struct timer_list timer;
-	struct pm_wd_data data;
 
 	pm_wd_add_timer(&timer, &data, 30);
 
