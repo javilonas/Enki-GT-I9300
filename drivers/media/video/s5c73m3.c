@@ -1102,7 +1102,7 @@ request_fw:
 			retVal = s5c73m3_compare_date(sd,
 				S5C73M3_IN_DATA,
 				S5C73M3_IN_SYSTEM);
-			if (retVal <= 0) {
+			if (retVal < 0) {
 				/*unlink(&fw_path_in_data);*/
 				state->fw_index = S5C73M3_IN_SYSTEM;
 			} else {
