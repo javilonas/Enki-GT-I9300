@@ -2155,7 +2155,13 @@ config MACH_GD2_SENSOR
 
 	  K330 / STM
 	  AK8963 / AKM
-	  CM36651 / CAPELLA
+	  CM36651 / CAPELLA	  
+
+config CHARGE_LEVEL
+	bool "Charge level interface"
+	default y
+	help
+	  Allows configuration of ac and usb charging levels	  
 
 config GC2PD_LTE
 	bool "GC2PD LTE model"
