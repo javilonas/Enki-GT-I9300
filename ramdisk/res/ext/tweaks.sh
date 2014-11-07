@@ -15,6 +15,9 @@ echo "8" > /proc/sys/vm/page-cluster
 
 echo "0" > /proc/sys/kernel/randomize_va_space
 
+echo "900" > /sys/kernel/charge_levels/charge_level_usb
+echo "1200" > /sys/kernel/charge_levels/charge_level_ac
+
 # Turn off debugging for certain modules
 echo "0" > /sys/module/wakelock/parameters/debug_mask
 echo "0" > /sys/module/userwakelock/parameters/debug_mask
