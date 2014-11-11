@@ -26,6 +26,7 @@
 /dev/srp_ctrl             0660   system     audio
 /dev/umts*                0660   system     radio
 /dev/block/mmcblk0p7	  0660	 system	    radio
+/dev/block/mmcblk0p4	  0660	 system	    system
 
 # ipc / modem
 /dev/block/mmcblk0p7      0660   system     root
@@ -34,7 +35,7 @@
 /dev/block/mmcblk0p5      0660   system     radio
 /dev/block/mmcblk0p6      0660   system     radio
 /dev/block/mmcblk0p11     0660   system     radio
-/dev/mdm               0660   system     system
+/dev/mdm                  0660   system     system
 
 /dev/block/mmcblk1	  0660   root	    system
 /dev/ttyUSB0              0660   system     system

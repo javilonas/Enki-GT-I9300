@@ -225,12 +225,15 @@ on post-fs-data
     mkdir /data/misc/radio 0775 radio system
     mkdir /data/misc/radio/hatp 0755 radio system
     mkdir /data/misc/sms 0770 system radio
+    mkdir /data/misc/zoneinfo 0775 system system
     mkdir /data/misc/vpn 0770 system vpn
     mkdir /data/misc/systemkeys 0700 system system
     # give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi wifi
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     mkdir /data/local 0751 root root
+    mkdir /data/misc/media 0700 media media
+    restorecon_recursive /data/misc/media
 
     # icd
     check_icd
@@ -251,6 +254,7 @@ on post-fs-data
     mkdir /data/property 0700 root root
     mkdir /data/ssh 0750 root shell
     mkdir /data/ssh/empty 0700 root root
+    mkdir /data/radio 0770 radio radio
 
     # create dalvik-cache, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
@@ -273,6 +277,15 @@ on post-fs-data
     mkdir /data/mediadrm 0770 mediadrm mediadrm
 
 # [ SEC_MM_DRM
+
+    # [ save OMA DB, when upgrading from GB to ICS
+    # belows will be removed at KLP
+    mkdir /data/system/databases 0771 system system
+    copy /data/data/com.sec.android.providers.drm/databases/drmdatabase.db /data/system/databases/drmdatabase.db
+    chown system system /data/system/databases/drmdatabase.db
+    chmod 0774 /data/system/databases/drmdatabase.db
+    # ]
+
     # sdrm
     mkdir /efs/drm 0774 drm system
     mkdir /efs/drm/sdrm 0774 drm system
@@ -595,6 +608,13 @@ on boot
 
 # Define default initial receive window size in segments.
     setprop net.tcp.default_init_rwnd 60
+
+# HDCP 2.x
+    mkdir /data/system/hdcp2 0775 system system
+
+# h2k permission
+    chown radio system /efs/redata.bin
+    chmod 0644 /efs/h2k.dat
 
     class_start core
     class_start main
