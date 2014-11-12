@@ -113,8 +113,6 @@ on post-fs-data
     mkdir /data/misc/wifi 0770 wifi system
     mkdir /efs/wifi 0775 radio system
     mkdir /efs/bluetooth 0775 radio system
-    mkdir /data/misc/radio 0775 radio system
-    chmod 0775 /data/misc/radio
     mkdir /efs/imei 0775 radio system
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -393,33 +391,11 @@ on fs
     chmod 0555 /data/app/FFFFFFFF000000000000000000000001.drbin
     chmod 0555 /data/app/mcRegistry/00060308060501020000000000000000.tlbin
 
-# IPC sysfs
-    chown radio radio /sys/devices/virtual/misc/multipdp/waketime
-    symlink /dev/block/mmcblk0p7 /dev/mbin0
-
 on post-fs
     chown radio system /efs
     chmod 0771 /efs
 
 on post-fs-data
-
-#QCRIL
-
-    #Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_radio 0770 radio radio
-    chmod 2770 /dev/socket/qmux_radio
-    mkdir /dev/socket/qmux_audio 0770 media audio
-    chmod 2770 /dev/socket/qmux_audio
-
-    # Allow QMUX daemon to assign port open wait time
-    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
-    # To prevent out of order acknowledgements from making
-    # connection tracking to treat them as not belonging to
-    # the connection they belong to.
-    # Otherwise, a weird issue happens in which some long
-    # connections on high-throughput links get dropped when
-    # an ack packet comes out of order
-    write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
 
 # SISO-ANDR_PERF :: START reseting cpu min freq to -1 after boot complete
 on property:sys.boot_completed=1
@@ -653,16 +629,6 @@ service tbased /system/bin/tbased
     user root
     oneshot
 
-#QCRIL
-service netmgrd /system/bin/netmgrd
-    class late_start
-
-service cpboot-daemon /sbin/cbd -d
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r
-    seclabel u:r:cbd:s0
-
 service ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio
@@ -673,22 +639,6 @@ service ril-daemon /system/bin/rild
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw log
     onrestart restart cpboot-daemon
-
-service secril-daemon /system/bin/sec-ril
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw diag log
-
-#For EncryptionMode - remove disabled, Modify class main
-service qmiproxy /system/bin/qmiproxy
-    class main
-    user radio
-    group radio
-
-service qmuxd /system/bin/qmuxd
-    class main
-    user root
-    group radio log audio bluetooth log
 
 on property:ro.use_data_netmgrd=false
 #netmgr not supported on specific target
@@ -819,6 +769,12 @@ on post-fs-data
     mkdir /efs/security 0771 root root
     chown radio system /efs/security
     chmod 0771 /efs/security
+
+service cpboot-daemon /sbin/cbd -d
+    class main
+    user root
+    group radio cache inet misc audio sdcard_rw log sdcard_r
+    seclabel u:r:cbd:s0
 
 # SSWAP
 service swapon /sbin/sswap -s

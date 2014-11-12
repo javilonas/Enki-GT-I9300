@@ -3,7 +3,7 @@ ui_print(" ");
 ui_print("   ##########################################   ");
 ui_print("   #          KERNEL MADE IN SPAIN          #   ");
 ui_print("   #   http://www.esp-desarrolladores.com   #   ");
-ui_print("   #               Enki v.0.4               #   ");
+ui_print("   #               Enki v.0.5               #   ");
 ui_print("   ##########################################   ");
 ui_print(" ");
 ui_print(" ");
@@ -47,7 +47,7 @@ ui_print(" ");
 ui_print(" - Flasheando kernel ");
 ui_print(" ");
 ui_print(" ");
-ui_print(" - Version: [Enki-0.4] ");
+ui_print(" - Version: [Enki-0.5] ");
 ui_print(" ");
 ui_print(" ");
 assert(package_extract_file("boot.img", "/tmp/boot.img"),
