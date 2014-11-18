@@ -86,13 +86,13 @@ mali_runtime_resume_table mali_runtime_resume = {266, 900000, 1};
 /* dvfs table */
 mali_dvfs_table mali_dvfs[MALI_DVFS_STEPS]={
 #if defined(CONFIG_CPU_EXYNOS4212) || defined(CONFIG_CPU_EXYNOS4412)
-			/* step 0 */{160  ,1000000	,875000	, 0   , 70},
-			/* step 1 */{266  ,1000000	,900000	,62   , 90},
-			/* step 2 */{350  ,1000000	,950000	,85   , 90},
-			/* step 3 */{440  ,1000000	,1025000   ,85   , 90},
+			/* step 0 */{160  ,1000000	,875000    ,0    ,70},
+			/* step 1 */{266  ,1000000	,900000    ,62   ,90},
+			/* step 2 */{350  ,1000000	,950000    ,85   ,90},
+			/* step 3 */{440  ,1000000	,1025000   ,85   ,90},
 			/* step 4 */{533  ,1000000	,1075000   ,95   ,100} };
 #else
-			/* step 0 */{134  ,1000000	, 950000   ,85   , 90},
+			/* step 0 */{134  ,1000000	,950000    ,85   ,90},
 			/* step 1 */{267  ,1000000	,1050000   ,85   ,100} };
 #endif
 
@@ -169,15 +169,15 @@ static unsigned int asv_3d_volt_4212_9_table[MALI_DVFS_STEPS][ASV_LEVEL_PD] = {
 #define CLK_DIV_STAT_G3D 0x1003C62C
 #define CLK_DESC		 "clk-divider-status"
 
-static struct clk *ext_xtal_clock	= NULL;
-static struct clk *vpll_src_clock	= NULL;
-static struct clk *fout_vpll_clock   = NULL;
-static struct clk *sclk_vpll_clock   = NULL;
+static struct clk *ext_xtal_clock = NULL;
+static struct clk *vpll_src_clock = NULL;
+static struct clk *fout_vpll_clock = NULL;
+static struct clk *sclk_vpll_clock = NULL;
 
-static struct clk *mpll_clock		= NULL;
+static struct clk *mpll_clock = NULL;
 static struct clk *mali_parent_clock = NULL;
-static struct clk  *mali_mout0_clock = NULL;
-static struct clk *mali_clock		= NULL;
+static struct clk *mali_mout0_clock = NULL;
+static struct clk *mali_clock = NULL;
 
 #if defined(CONFIG_CPU_EXYNOS4412) || defined(CONFIG_CPU_EXYNOS4212)
 /* Pegasus */
@@ -191,7 +191,7 @@ int mali_gpu_clk = 267;
 int mali_gpu_vol = 1050000;
 #endif
 
-static unsigned int GPU_MHZ	= 1000000;
+static unsigned int GPU_MHZ = 1000000;
 
 int  gpu_power_state;
 static int bPoweroff;
