@@ -3,11 +3,9 @@
 # Script inicio lonas-init.sh
 #
 
-SYSTEM_DEVICE="/dev/block/mmcblk0p9"
-
 # Inicio
-/sbin/busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
-/sbin/busybox mount -t rootfs -o remount,rw rootfs
+busybox mount -o remount,rw -t auto /system
+busybox mount -t rootfs -o remount,rw rootfs
 
 # Detectar y generar INIT.D
 /res/ext/init_d.sh
@@ -30,15 +28,13 @@ SYSTEM_DEVICE="/dev/block/mmcblk0p9"
 # Iniciar Sensor
 /res/ext/sensors.sh
 
-# Soporte Init.d
-if [ -d /system/etc/init.d ]; then
-  /sbin/busybox run-parts /system/etc/init.d
-fi;
-
 # Iniciar MTP/adb
 /res/ext/usb_mtp.sh
 
-/sbin/busybox sync
+# Iniciar Init.d
+/res/ext/init_d2.sh
 
-/sbin/busybox mount -t rootfs -o remount,ro rootfs
-/sbin/busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+busybox sync
+
+busybox mount -t rootfs -o remount,ro rootfs
+busybox mount -o remount,ro -t auto /system

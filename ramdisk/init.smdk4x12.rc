@@ -295,6 +295,10 @@ on boot
     chmod 0600 /dev/pn544
     chown nfc nfc /dev/pn544
 
+    # Set permission for Widevine DRM temporarily
+    chmod 0777 /dev/s5p-smem
+    rm /data/app/tlcd_sock
+
 # Vibetonz
     chmod 0660 /dev/tspdrv
     chown system system /dev/tspdrv
@@ -304,14 +308,14 @@ on fs
     setprop ro.crypto.fuse_sdcard true
 
 # for LogMeIn
-    mount ext4 /dev/block/mmcblk0p9 /system rw wait noatime remount
+    exec /sbin/sysrw
 
     chown graphics /system/bin/RescueStarter
     chmod 0755 /system/bin/RescueStarter
     chown graphics /system/bin/RescueServer
     chmod 0755 /system/bin/RescueServer
 
-    mount ext4 /dev/block/mmcblk0p9 /system ro wait noatime remount
+    exec /sbin/sysro
 
 # Permissions for DVFS
     chown radio system /sys/power/cpufreq_table

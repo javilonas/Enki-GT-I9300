@@ -32,7 +32,7 @@ echo "0" > /sys/module/kernel/parameters/initcall_debug
 echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask
 
 # Otros Misc tweaks
-/sbin/busybox mount -t debugfs none /sys/kernel/debug
+busybox mount -t debugfs none /sys/kernel/debug
 echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo NO_START_DEBIT > /sys/kernel/debug/sched_features

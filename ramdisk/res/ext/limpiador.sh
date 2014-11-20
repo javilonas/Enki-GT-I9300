@@ -4,11 +4,11 @@
 #
 
 # remove cache, tmp, and unused files
-/sbin/busybox sync
-/sbin/busybox rm -f /cache/*.apk
-/sbin/busybox rm -f /cache/*.tmp
-/sbin/busybox rm -f /data/dalvik-cache/*.apk
-/sbin/busybox rm -f /data/dalvik-cache/*.tmp
-/sbin/busybox rm -f /data/data/com.google.android.gms/files/flog
-/sbin/busybox sync
-/sbin/busybox sleep 1
+busybox sync
+busybox rm -f /cache/*.apk
+busybox rm -f /cache/*.tmp
+busybox rm -f /data/dalvik-cache/*.apk
+busybox rm -f /data/dalvik-cache/*.tmp
+busybox rm -f /data/data/com.google.android.gms/files/flog
+busybox sync
+busybox sleep 1
