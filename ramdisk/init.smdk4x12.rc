@@ -295,10 +295,6 @@ on boot
     chmod 0600 /dev/pn544
     chown nfc nfc /dev/pn544
 
-    # Set permission for Widevine DRM temporarily
-    chmod 0777 /dev/s5p-smem
-    rm /data/app/tlcd_sock
-
 # Vibetonz
     chmod 0660 /dev/tspdrv
     chown system system /dev/tspdrv
