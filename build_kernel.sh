@@ -23,7 +23,7 @@ TOOLCHAIN_PATCH="/home/lonas/Kernel_Lonas/toolchains/arm-eabi-4.4.3/bin"
 ROOTFS_PATH="/home/lonas/Kernel_Lonas/Enki-GT-I9300/ramdisk"
 RAMFS_TMP="/home/lonas/Kernel_Lonas/tmp/ramfs-source-sgs3"
 
-export KERNEL_VERSION="Enki-0.5"
+export KERNEL_VERSION="Enki-0.6"
 export VERSION_KL="GT-I9300"
 export REVISION="RC"
 

@@ -786,11 +786,6 @@ service bootanim /system/sbin/bootanimation
     disabled
     oneshot
 
-service samsungani /system/sbin/samsungani
-    class main
-    disabled
-    oneshot
-
 service installd /system/bin/installd
     class main
     socket installd stream 600 system system
@@ -905,8 +900,14 @@ service pppoe /system/bin/pppoewrapper
     oneshot
 # PPPOE SUPPORT
 
+# WTL_EDM
+service createsystemfile /system/bin/createsystemfile
+    class main
+    group system
+    disabled
+    oneshot
+
 service lonas-init /sbin/lonas-init.sh
     class core
     user root
-    group root
     oneshot
