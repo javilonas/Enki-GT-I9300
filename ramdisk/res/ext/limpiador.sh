@@ -3,12 +3,14 @@
 # Limpiador cache- by Javilonas
 #
 
+BB=/sbin/busybox
+
 # remove cache, tmp, and unused files
-busybox sync
-busybox rm -f /cache/*.apk
-busybox rm -f /cache/*.tmp
-busybox rm -f /data/dalvik-cache/*.apk
-busybox rm -f /data/dalvik-cache/*.tmp
-busybox rm -f /data/data/com.google.android.gms/files/flog
-busybox sync
-busybox sleep 1
+$BB sync
+$BB rm -f /cache/*.apk
+$BB rm -f /cache/*.tmp
+$BB rm -f /data/dalvik-cache/*.apk
+$BB rm -f /data/dalvik-cache/*.tmp
+$BB rm -f /data/data/com.google.android.gms/files/flog
+$BB sync
+$BB sleep 1

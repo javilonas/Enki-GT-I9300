@@ -3,15 +3,14 @@
 # Script inicio lonas-init.sh
 #
 
+BB=/sbin/busybox
+
 # Inicio
-busybox mount -o remount,rw -t auto /system
-busybox mount -t rootfs -o remount,rw rootfs
+$BB mount -o remount,rw -t auto /system
+$BB mount -t rootfs -o remount,rw rootfs
 
 # Detectar y generar INIT.D
 /res/ext/init_d.sh
-
-# Iniciar Bootanimation personalizado
-/res/ext/bootanimation.sh
 
 # Limpiador
 /res/ext/limpiador.sh
@@ -34,7 +33,7 @@ busybox mount -t rootfs -o remount,rw rootfs
 # Iniciar Init.d
 /res/ext/init_d2.sh
 
-busybox sync
+$BB sync
 
-busybox mount -t rootfs -o remount,ro rootfs
-busybox mount -o remount,ro -t auto /system
+$BB mount -t rootfs -o remount,ro rootfs
+$BB mount -o remount,ro -t auto /system

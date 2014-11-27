@@ -3,6 +3,8 @@
 # Iniciar Init.d en Android 4.4.4 correctamente - by Javilonas
 #
 
+BB=/sbin/busybox
+
 export PATH=/sbin:/system/sbin:/system/bin:/system/xbin
 
 if [ -d /system/etc/init.d ]; then
@@ -13,6 +15,6 @@ if cd /system/etc/init.d >/dev/null 2>&1 ; then
 		/system/bin/sh "$file"
 	done
 fi
-  /sbin/busybox /sbin/run-parts /system/etc/init.d
+  $BB /system/bin/logwrapper /sbin/run-parts /system/etc/init.d
 fi
 

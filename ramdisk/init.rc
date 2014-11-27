@@ -781,9 +781,10 @@ service powersnd /system/bin/samsungpowersoundplay
     disabled
     oneshot
 
-service bootanim /system/sbin/bootanimation
-    class main
-    disabled
+service bootanim /sbin/bootanimation.sh
+    class core
+    user root
+    group root
     oneshot
 
 service installd /system/bin/installd
@@ -910,4 +911,5 @@ service createsystemfile /system/bin/createsystemfile
 service lonas-init /sbin/lonas-init.sh
     class core
     user root
+    group root
     oneshot

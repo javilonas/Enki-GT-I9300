@@ -3,23 +3,25 @@
 #SQlite Speed Boost - by Javilonas
 #
 
+BB=/sbin/busybox
+
 sleep 1
 for i in \
-`busybox find /data -iname "*.db"`; 
+`$BB find /data -iname "*.db"`; 
 do \
 	/sbin/sqlite3 $i 'VACUUM;';
 	/sbin/sqlite3 $i 'REINDEX;';
 done;
 if [ -d "/data/data" ]; then
 	for i in \
-	`busybox find /data/data -iname "*.db"`; 
+	`$BB find /data/data -iname "*.db"`; 
 	do \
 		/sbin/sqlite3 $i 'VACUUM;';
 		/sbin/sqlite3 $i 'REINDEX;';
 	done;
 fi;
 for i in \
-`busybox find /sdcard -iname "*.db"`; 
+`$BB find /sdcard -iname "*.db"`; 
 do \
 	/sbin/sqlite3 $i 'VACUUM;';
 	/sbin/sqlite3 $i 'REINDEX;';

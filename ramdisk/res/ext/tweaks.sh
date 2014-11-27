@@ -3,6 +3,8 @@
 # Tweaks - by Javilonas
 #
 
+BB=/sbin/busybox
+
 # CACHE AUTO CLEAN
 
 echo "3" > /proc/sys/vm/drop_caches
@@ -17,6 +19,8 @@ echo "0" > /proc/sys/kernel/randomize_va_space
 
 echo "900" > /sys/kernel/charge_levels/charge_level_usb
 echo "1200" > /sys/kernel/charge_levels/charge_level_ac
+echo "1" > /sys/kernel/charge_levels/ignore_unstable_power
+echo "1" > /sys/kernel/charge_levels/ignore_safety_margin
 
 # Turn off debugging for certain modules
 echo "0" > /sys/module/wakelock/parameters/debug_mask
@@ -32,7 +36,7 @@ echo "0" > /sys/module/kernel/parameters/initcall_debug
 echo "0" > /sys/module/xt_qtaguid/parameters/debug_mask
 
 # Otros Misc tweaks
-busybox mount -t debugfs none /sys/kernel/debug
+$BB mount -t debugfs none /sys/kernel/debug
 echo NO_NORMALIZED_SLEEPER > /sys/kernel/debug/sched_features
 echo NO_GENTLE_FAIR_SLEEPERS > /sys/kernel/debug/sched_features
 echo NO_START_DEBIT > /sys/kernel/debug/sched_features

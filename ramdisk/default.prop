@@ -10,3 +10,6 @@ persist.sys.usb.config=mtp,adb
 ro.securestorage.knox=false
 ro.securestorage.support=false
 androidboot.selinux=0
+ro.build.selinux=0
+ro.config.knox=0
+ro.config.tima=0
