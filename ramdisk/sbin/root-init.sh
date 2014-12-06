@@ -81,6 +81,9 @@ $BB chmod 0755 /system/etc/init.d/*
 $BB chmod 0777 /data/log/
 $BB chmod 0777 /data/log/*
 
+# Iniciar correctamente el sistema (fix permisos)
+/res/ext/inicio_correcto.sh
+
 $BB sync
 
 $BB mount -t rootfs -o remount,ro rootfs
