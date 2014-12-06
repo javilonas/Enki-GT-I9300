@@ -14,9 +14,11 @@ echo "0" > /sys/module/cpuidle_exynos4/parameters/log_en
 
 # Miscellaneous tweaks
 echo "8" > /proc/sys/vm/page-cluster
+echo "5" > /proc/sys/vm/laptop_mode
 
 echo "0" > /proc/sys/kernel/randomize_va_space
 
+# Charger Levels
 echo "900" > /sys/kernel/charge_levels/charge_level_usb
 echo "1200" > /sys/kernel/charge_levels/charge_level_ac
 echo "1" > /sys/kernel/charge_levels/ignore_unstable_power

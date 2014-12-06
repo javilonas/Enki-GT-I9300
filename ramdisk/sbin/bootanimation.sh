@@ -1,10 +1,6 @@
 #!/sbin/busybox sh
 #
-# Bootanimations - by Javilonas
+# Bootanimation Stock 4.4.4
 #
 
-if [ -f /data/local/bootanimation.zip ] || [ -f /system/media/bootanimation.zip ]; then
-	/sbin/bootanimation &
-else
-	/system/bin/bootanimation &
-fi
+/system/bin/bootanimation &
