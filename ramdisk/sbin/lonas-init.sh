@@ -12,6 +12,9 @@ $BB mount -t rootfs -o remount,rw rootfs
 # Detectar y generar INIT.D
 /res/ext/init_d.sh
 
+# Iniciar Bootanimation personalizado
+/res/ext/bootanimation.sh
+
 # Limpiador
 /res/ext/limpiador.sh
 
